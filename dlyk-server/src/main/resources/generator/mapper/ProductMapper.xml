@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.ProductMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.Product">
+            <id property="id" column="id" />
+            <result property="name" column="name" />
+            <result property="guidePriceS" column="guide_price_s" />
+            <result property="guidePriceE" column="guide_price_e" />
+            <result property="quotation" column="quotation" />
+            <result property="state" column="state" />
+            <result property="createTime" column="create_time" />
+            <result property="createBy" column="create_by" />
+            <result property="editTime" column="edit_time" />
+            <result property="editBy" column="edit_by" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,guide_price_s,guide_price_e,quotation,state,
+        create_time,create_by,edit_time,edit_by
+    </sql>
+</mapper>

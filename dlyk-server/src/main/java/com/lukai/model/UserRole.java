@@ -1,4 +1,4 @@
-package generator.domain;
+package com.lukai.model;
 
 import lombok.Data;
 

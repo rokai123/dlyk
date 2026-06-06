@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.ClueRemarkMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.ClueRemark">
+            <id property="id" column="id" />
+            <result property="clueId" column="clue_id" />
+            <result property="noteWay" column="note_way" />
+            <result property="noteContent" column="note_content" />
+            <result property="createTime" column="create_time" />
+            <result property="createBy" column="create_by" />
+            <result property="editTime" column="edit_time" />
+            <result property="editBy" column="edit_by" />
+            <result property="deleted" column="deleted" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,clue_id,note_way,note_content,create_time,create_by,
+        edit_time,edit_by,deleted
+    </sql>
+</mapper>

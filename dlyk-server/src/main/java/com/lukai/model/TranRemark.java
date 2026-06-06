@@ -1,4 +1,4 @@
-package generator.domain;
+package com.lukai.model;
 
 import java.util.Date;
 import lombok.Data;
