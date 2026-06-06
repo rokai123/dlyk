@@ -1,0 +1,17 @@
+# 前端
+dlyk-front/node_modules/
+dlyk-front/dist/
+dlyk-front/.env.local
+
+# 后端
+dlyk-server/target/
+dlyk-server/.idea/
+dlyk-server/*.iml
+
+# 通用
+.idea/
+*.iml
+.DS_Store
+
+# 资料文件夹不想提交的话
+课件与资料/
