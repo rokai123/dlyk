@@ -22,4 +22,5 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
+    User SelectByLoginAct(String loginAct);
 }
