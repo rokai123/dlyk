@@ -1,14 +1,19 @@
 package com.lukai.model;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * 用户表
  * @TableName t_user
  */
 @Data
-public class User {
+public class User implements UserDetails {
     /**
      * 主键，自动增长，用户ID
      */
@@ -83,4 +88,39 @@ public class User {
      * 最近登录时间
      */
     private Date lastLoginTime;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return "";
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

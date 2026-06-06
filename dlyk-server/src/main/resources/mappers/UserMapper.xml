@@ -152,4 +152,11 @@
             last_login_time =  #{lastLoginTime}
         where   id = #{id} 
     </update>
+    
+    <select id="SelectByLoginAct" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_user
+        where login_act = #{loginAct}
+    </select>
 </mapper>
