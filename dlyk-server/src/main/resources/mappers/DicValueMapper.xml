@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lukai.mapper.DicValueMapper">
+
+    <resultMap id="BaseResultMap" type="com.lukai.model.DicValue">
+            <id property="id" column="id" />
+            <result property="typeCode" column="type_code" />
+            <result property="typeValue" column="type_value" />
+            <result property="order" column="order" />
+            <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,type_code,type_value,order,remark
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_dic_value
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_dic_value
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.DicValue" useGeneratedKeys="true">
+        insert into t_dic_value
+        ( id,type_code,type_value,order,remark)
+        values (#{id},#{typeCode},#{typeValue},#{order},#{remark})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.DicValue" useGeneratedKeys="true">
+        insert into t_dic_value
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="typeCode != null">type_code,</if>
+                <if test="typeValue != null">type_value,</if>
+                <if test="order != null">order,</if>
+                <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="typeCode != null">#{typeCode},</if>
+                <if test="typeValue != null">#{typeValue},</if>
+                <if test="order != null">#{order},</if>
+                <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lukai.model.DicValue">
+        update t_dic_value
+        <set>
+                <if test="typeCode != null">
+                    type_code = #{typeCode},
+                </if>
+                <if test="typeValue != null">
+                    type_value = #{typeValue},
+                </if>
+                <if test="order != null">
+                    order = #{order},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lukai.model.DicValue">
+        update t_dic_value
+        set 
+            type_code =  #{typeCode},
+            type_value =  #{typeValue},
+            order =  #{order},
+            remark =  #{remark}
+        where   id = #{id} 
+    </update>
+</mapper>

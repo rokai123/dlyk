@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lukai.mapper.TranHistoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.lukai.model.TranHistory">
+            <id property="id" column="id" />
+            <result property="tranId" column="tran_id" />
+            <result property="stage" column="stage" />
+            <result property="money" column="money" />
+            <result property="expectedDate" column="expected_date" />
+            <result property="createTime" column="create_time" />
+            <result property="createBy" column="create_by" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,tran_id,stage,money,expected_date,create_time,
+        create_by
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_tran_history
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_tran_history
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.TranHistory" useGeneratedKeys="true">
+        insert into t_tran_history
+        ( id,tran_id,stage,money,expected_date,create_time,
+        create_by)
+        values (#{id},#{tranId},#{stage},#{money},#{expectedDate},#{createTime},
+        #{createBy})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.TranHistory" useGeneratedKeys="true">
+        insert into t_tran_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="tranId != null">tran_id,</if>
+                <if test="stage != null">stage,</if>
+                <if test="money != null">money,</if>
+                <if test="expectedDate != null">expected_date,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="createBy != null">create_by,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="tranId != null">#{tranId},</if>
+                <if test="stage != null">#{stage},</if>
+                <if test="money != null">#{money},</if>
+                <if test="expectedDate != null">#{expectedDate},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="createBy != null">#{createBy},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lukai.model.TranHistory">
+        update t_tran_history
+        <set>
+                <if test="tranId != null">
+                    tran_id = #{tranId},
+                </if>
+                <if test="stage != null">
+                    stage = #{stage},
+                </if>
+                <if test="money != null">
+                    money = #{money},
+                </if>
+                <if test="expectedDate != null">
+                    expected_date = #{expectedDate},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lukai.model.TranHistory">
+        update t_tran_history
+        set 
+            tran_id =  #{tranId},
+            stage =  #{stage},
+            money =  #{money},
+            expected_date =  #{expectedDate},
+            create_time =  #{createTime},
+            create_by =  #{createBy}
+        where   id = #{id} 
+    </update>
+</mapper>

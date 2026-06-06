@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lukai.mapper.CustomerRemarkMapper">
+
+    <resultMap id="BaseResultMap" type="com.lukai.model.CustomerRemark">
+            <id property="id" column="id" />
+            <result property="customerId" column="customer_id" />
+            <result property="noteWay" column="note_way" />
+            <result property="noteContent" column="note_content" />
+            <result property="createBy" column="create_by" />
+            <result property="createTime" column="create_time" />
+            <result property="editTime" column="edit_time" />
+            <result property="editBy" column="edit_by" />
+            <result property="deleted" column="deleted" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,customer_id,note_way,note_content,create_by,create_time,
+        edit_time,edit_by,deleted
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_customer_remark
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_customer_remark
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.CustomerRemark" useGeneratedKeys="true">
+        insert into t_customer_remark
+        ( id,customer_id,note_way,note_content,create_by,create_time,
+        edit_time,edit_by,deleted)
+        values (#{id},#{customerId},#{noteWay},#{noteContent},#{createBy},#{createTime},
+        #{editTime},#{editBy},#{deleted})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.CustomerRemark" useGeneratedKeys="true">
+        insert into t_customer_remark
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="customerId != null">customer_id,</if>
+                <if test="noteWay != null">note_way,</if>
+                <if test="noteContent != null">note_content,</if>
+                <if test="createBy != null">create_by,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="editTime != null">edit_time,</if>
+                <if test="editBy != null">edit_by,</if>
+                <if test="deleted != null">deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="customerId != null">#{customerId},</if>
+                <if test="noteWay != null">#{noteWay},</if>
+                <if test="noteContent != null">#{noteContent},</if>
+                <if test="createBy != null">#{createBy},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="editTime != null">#{editTime},</if>
+                <if test="editBy != null">#{editBy},</if>
+                <if test="deleted != null">#{deleted},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lukai.model.CustomerRemark">
+        update t_customer_remark
+        <set>
+                <if test="customerId != null">
+                    customer_id = #{customerId},
+                </if>
+                <if test="noteWay != null">
+                    note_way = #{noteWay},
+                </if>
+                <if test="noteContent != null">
+                    note_content = #{noteContent},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="editTime != null">
+                    edit_time = #{editTime},
+                </if>
+                <if test="editBy != null">
+                    edit_by = #{editBy},
+                </if>
+                <if test="deleted != null">
+                    deleted = #{deleted},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lukai.model.CustomerRemark">
+        update t_customer_remark
+        set 
+            customer_id =  #{customerId},
+            note_way =  #{noteWay},
+            note_content =  #{noteContent},
+            create_by =  #{createBy},
+            create_time =  #{createTime},
+            edit_time =  #{editTime},
+            edit_by =  #{editBy},
+            deleted =  #{deleted}
+        where   id = #{id} 
+    </update>
+</mapper>

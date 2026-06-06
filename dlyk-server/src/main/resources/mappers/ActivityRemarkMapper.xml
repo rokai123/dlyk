@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lukai.mapper.ActivityRemarkMapper">
+
+    <resultMap id="BaseResultMap" type="com.lukai.model.ActivityRemark">
+            <id property="id" column="id" />
+            <result property="activityId" column="activity_id" />
+            <result property="noteContent" column="note_content" />
+            <result property="createTime" column="create_time" />
+            <result property="createBy" column="create_by" />
+            <result property="editTime" column="edit_time" />
+            <result property="editBy" column="edit_by" />
+            <result property="deleted" column="deleted" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,activity_id,note_content,create_time,create_by,edit_time,
+        edit_by,deleted
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_activity_remark
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_activity_remark
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.ActivityRemark" useGeneratedKeys="true">
+        insert into t_activity_remark
+        ( id,activity_id,note_content,create_time,create_by,edit_time,
+        edit_by,deleted)
+        values (#{id},#{activityId},#{noteContent},#{createTime},#{createBy},#{editTime},
+        #{editBy},#{deleted})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.ActivityRemark" useGeneratedKeys="true">
+        insert into t_activity_remark
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="activityId != null">activity_id,</if>
+                <if test="noteContent != null">note_content,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="createBy != null">create_by,</if>
+                <if test="editTime != null">edit_time,</if>
+                <if test="editBy != null">edit_by,</if>
+                <if test="deleted != null">deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="activityId != null">#{activityId},</if>
+                <if test="noteContent != null">#{noteContent},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="createBy != null">#{createBy},</if>
+                <if test="editTime != null">#{editTime},</if>
+                <if test="editBy != null">#{editBy},</if>
+                <if test="deleted != null">#{deleted},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lukai.model.ActivityRemark">
+        update t_activity_remark
+        <set>
+                <if test="activityId != null">
+                    activity_id = #{activityId},
+                </if>
+                <if test="noteContent != null">
+                    note_content = #{noteContent},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="editTime != null">
+                    edit_time = #{editTime},
+                </if>
+                <if test="editBy != null">
+                    edit_by = #{editBy},
+                </if>
+                <if test="deleted != null">
+                    deleted = #{deleted},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lukai.model.ActivityRemark">
+        update t_activity_remark
+        set 
+            activity_id =  #{activityId},
+            note_content =  #{noteContent},
+            create_time =  #{createTime},
+            create_by =  #{createBy},
+            edit_time =  #{editTime},
+            edit_by =  #{editBy},
+            deleted =  #{deleted}
+        where   id = #{id} 
+    </update>
+</mapper>

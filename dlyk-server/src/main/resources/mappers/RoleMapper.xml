@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lukai.mapper.RoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.lukai.model.Role">
+            <id property="id" column="id" />
+            <result property="role" column="role" />
+            <result property="roleName" column="role_name" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,role,role_name
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_role
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_role
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.Role" useGeneratedKeys="true">
+        insert into t_role
+        ( id,role,role_name)
+        values (#{id},#{role},#{roleName})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.Role" useGeneratedKeys="true">
+        insert into t_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="role != null">role,</if>
+                <if test="roleName != null">role_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="role != null">#{role},</if>
+                <if test="roleName != null">#{roleName},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lukai.model.Role">
+        update t_role
+        <set>
+                <if test="role != null">
+                    role = #{role},
+                </if>
+                <if test="roleName != null">
+                    role_name = #{roleName},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lukai.model.Role">
+        update t_role
+        set 
+            role =  #{role},
+            role_name =  #{roleName}
+        where   id = #{id} 
+    </update>
+</mapper>

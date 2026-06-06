@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lukai.mapper.TranMapper">
+
+    <resultMap id="BaseResultMap" type="com.lukai.model.Tran">
+            <id property="id" column="id" />
+            <result property="tranNo" column="tran_no" />
+            <result property="customerId" column="customer_id" />
+            <result property="money" column="money" />
+            <result property="expectedDate" column="expected_date" />
+            <result property="stage" column="stage" />
+            <result property="description" column="description" />
+            <result property="nextContactTime" column="next_contact_time" />
+            <result property="createTime" column="create_time" />
+            <result property="createBy" column="create_by" />
+            <result property="editTime" column="edit_time" />
+            <result property="editBy" column="edit_by" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,tran_no,customer_id,money,expected_date,stage,
+        description,next_contact_time,create_time,create_by,edit_time,
+        edit_by
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_tran
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_tran
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.Tran" useGeneratedKeys="true">
+        insert into t_tran
+        ( id,tran_no,customer_id,money,expected_date,stage,
+        description,next_contact_time,create_time,create_by,edit_time,
+        edit_by)
+        values (#{id},#{tranNo},#{customerId},#{money},#{expectedDate},#{stage},
+        #{description},#{nextContactTime},#{createTime},#{createBy},#{editTime},
+        #{editBy})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.Tran" useGeneratedKeys="true">
+        insert into t_tran
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="tranNo != null">tran_no,</if>
+                <if test="customerId != null">customer_id,</if>
+                <if test="money != null">money,</if>
+                <if test="expectedDate != null">expected_date,</if>
+                <if test="stage != null">stage,</if>
+                <if test="description != null">description,</if>
+                <if test="nextContactTime != null">next_contact_time,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="createBy != null">create_by,</if>
+                <if test="editTime != null">edit_time,</if>
+                <if test="editBy != null">edit_by,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="tranNo != null">#{tranNo},</if>
+                <if test="customerId != null">#{customerId},</if>
+                <if test="money != null">#{money},</if>
+                <if test="expectedDate != null">#{expectedDate},</if>
+                <if test="stage != null">#{stage},</if>
+                <if test="description != null">#{description},</if>
+                <if test="nextContactTime != null">#{nextContactTime},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="createBy != null">#{createBy},</if>
+                <if test="editTime != null">#{editTime},</if>
+                <if test="editBy != null">#{editBy},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lukai.model.Tran">
+        update t_tran
+        <set>
+                <if test="tranNo != null">
+                    tran_no = #{tranNo},
+                </if>
+                <if test="customerId != null">
+                    customer_id = #{customerId},
+                </if>
+                <if test="money != null">
+                    money = #{money},
+                </if>
+                <if test="expectedDate != null">
+                    expected_date = #{expectedDate},
+                </if>
+                <if test="stage != null">
+                    stage = #{stage},
+                </if>
+                <if test="description != null">
+                    description = #{description},
+                </if>
+                <if test="nextContactTime != null">
+                    next_contact_time = #{nextContactTime},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="editTime != null">
+                    edit_time = #{editTime},
+                </if>
+                <if test="editBy != null">
+                    edit_by = #{editBy},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lukai.model.Tran">
+        update t_tran
+        set 
+            tran_no =  #{tranNo},
+            customer_id =  #{customerId},
+            money =  #{money},
+            expected_date =  #{expectedDate},
+            stage =  #{stage},
+            description =  #{description},
+            next_contact_time =  #{nextContactTime},
+            create_time =  #{createTime},
+            create_by =  #{createBy},
+            edit_time =  #{editTime},
+            edit_by =  #{editBy}
+        where   id = #{id} 
+    </update>
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lukai.mapper.ActivityMapper">
+
+    <resultMap id="BaseResultMap" type="com.lukai.model.Activity">
+            <id property="id" column="id" />
+            <result property="ownerId" column="owner_id" />
+            <result property="name" column="name" />
+            <result property="startTime" column="start_time" />
+            <result property="endTime" column="end_time" />
+            <result property="cost" column="cost" />
+            <result property="description" column="description" />
+            <result property="createTime" column="create_time" />
+            <result property="createBy" column="create_by" />
+            <result property="editTime" column="edit_time" />
+            <result property="editBy" column="edit_by" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,owner_id,name,start_time,end_time,cost,
+        description,create_time,create_by,edit_time,edit_by
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_activity
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_activity
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.Activity" useGeneratedKeys="true">
+        insert into t_activity
+        ( id,owner_id,name,start_time,end_time,cost,
+        description,create_time,create_by,edit_time,edit_by)
+        values (#{id},#{ownerId},#{name},#{startTime},#{endTime},#{cost},
+        #{description},#{createTime},#{createBy},#{editTime},#{editBy})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.Activity" useGeneratedKeys="true">
+        insert into t_activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="ownerId != null">owner_id,</if>
+                <if test="name != null">name,</if>
+                <if test="startTime != null">start_time,</if>
+                <if test="endTime != null">end_time,</if>
+                <if test="cost != null">cost,</if>
+                <if test="description != null">description,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="createBy != null">create_by,</if>
+                <if test="editTime != null">edit_time,</if>
+                <if test="editBy != null">edit_by,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="ownerId != null">#{ownerId},</if>
+                <if test="name != null">#{name},</if>
+                <if test="startTime != null">#{startTime},</if>
+                <if test="endTime != null">#{endTime},</if>
+                <if test="cost != null">#{cost},</if>
+                <if test="description != null">#{description},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="createBy != null">#{createBy},</if>
+                <if test="editTime != null">#{editTime},</if>
+                <if test="editBy != null">#{editBy},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lukai.model.Activity">
+        update t_activity
+        <set>
+                <if test="ownerId != null">
+                    owner_id = #{ownerId},
+                </if>
+                <if test="name != null">
+                    name = #{name},
+                </if>
+                <if test="startTime != null">
+                    start_time = #{startTime},
+                </if>
+                <if test="endTime != null">
+                    end_time = #{endTime},
+                </if>
+                <if test="cost != null">
+                    cost = #{cost},
+                </if>
+                <if test="description != null">
+                    description = #{description},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="editTime != null">
+                    edit_time = #{editTime},
+                </if>
+                <if test="editBy != null">
+                    edit_by = #{editBy},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lukai.model.Activity">
+        update t_activity
+        set 
+            owner_id =  #{ownerId},
+            name =  #{name},
+            start_time =  #{startTime},
+            end_time =  #{endTime},
+            cost =  #{cost},
+            description =  #{description},
+            create_time =  #{createTime},
+            create_by =  #{createBy},
+            edit_time =  #{editTime},
+            edit_by =  #{editBy}
+        where   id = #{id} 
+    </update>
+</mapper>

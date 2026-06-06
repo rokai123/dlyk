@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lukai.mapper.ProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.lukai.model.Product">
+            <id property="id" column="id" />
+            <result property="name" column="name" />
+            <result property="guidePriceS" column="guide_price_s" />
+            <result property="guidePriceE" column="guide_price_e" />
+            <result property="quotation" column="quotation" />
+            <result property="state" column="state" />
+            <result property="createTime" column="create_time" />
+            <result property="createBy" column="create_by" />
+            <result property="editTime" column="edit_time" />
+            <result property="editBy" column="edit_by" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,guide_price_s,guide_price_e,quotation,state,
+        create_time,create_by,edit_time,edit_by
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_product
+        where  id = #{id} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_product
+        where  id = #{id} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.Product" useGeneratedKeys="true">
+        insert into t_product
+        ( id,name,guide_price_s,guide_price_e,quotation,state,
+        create_time,create_by,edit_time,edit_by)
+        values (#{id},#{name},#{guidePriceS},#{guidePriceE},#{quotation},#{state},
+        #{createTime},#{createBy},#{editTime},#{editBy})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lukai.model.Product" useGeneratedKeys="true">
+        insert into t_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="name != null">name,</if>
+                <if test="guidePriceS != null">guide_price_s,</if>
+                <if test="guidePriceE != null">guide_price_e,</if>
+                <if test="quotation != null">quotation,</if>
+                <if test="state != null">state,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="createBy != null">create_by,</if>
+                <if test="editTime != null">edit_time,</if>
+                <if test="editBy != null">edit_by,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="name != null">#{name},</if>
+                <if test="guidePriceS != null">#{guidePriceS},</if>
+                <if test="guidePriceE != null">#{guidePriceE},</if>
+                <if test="quotation != null">#{quotation},</if>
+                <if test="state != null">#{state},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="createBy != null">#{createBy},</if>
+                <if test="editTime != null">#{editTime},</if>
+                <if test="editBy != null">#{editBy},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lukai.model.Product">
+        update t_product
+        <set>
+                <if test="name != null">
+                    name = #{name},
+                </if>
+                <if test="guidePriceS != null">
+                    guide_price_s = #{guidePriceS},
+                </if>
+                <if test="guidePriceE != null">
+                    guide_price_e = #{guidePriceE},
+                </if>
+                <if test="quotation != null">
+                    quotation = #{quotation},
+                </if>
+                <if test="state != null">
+                    state = #{state},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="createBy != null">
+                    create_by = #{createBy},
+                </if>
+                <if test="editTime != null">
+                    edit_time = #{editTime},
+                </if>
+                <if test="editBy != null">
+                    edit_by = #{editBy},
+                </if>
+        </set>
+        where   id = #{id} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lukai.model.Product">
+        update t_product
+        set 
+            name =  #{name},
+            guide_price_s =  #{guidePriceS},
+            guide_price_e =  #{guidePriceE},
+            quotation =  #{quotation},
+            state =  #{state},
+            create_time =  #{createTime},
+            create_by =  #{createBy},
+            edit_time =  #{editTime},
+            edit_by =  #{editBy}
+        where   id = #{id} 
+    </update>
+</mapper>
