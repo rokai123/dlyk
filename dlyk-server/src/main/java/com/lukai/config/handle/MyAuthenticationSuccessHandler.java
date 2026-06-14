@@ -1,9 +1,10 @@
 package com.lukai.config.handle;
 
-import com.lukai.domain.User;
 import com.lukai.domain.constants.Constants;
 import com.lukai.domain.result.CodeEnum;
 import com.lukai.domain.result.R;
+import com.lukai.model.User;
+import com.lukai.utils.JSONUtils;
 import com.lukai.utils.JWTUtils;
 import com.lukai.utils.ResponseUtils;
 import jakarta.annotation.Resource;
@@ -14,9 +15,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import com.lukai.utils.JSONUtils;
+
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.concurrent.TimeUnit;
 
 /**

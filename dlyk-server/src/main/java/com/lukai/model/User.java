@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -89,38 +90,47 @@ public class User implements UserDetails {
      */
     private Date lastLoginTime;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
-
+    
+    @JsonIgnore
     @Override
     public String getPassword() {
-        return "";
+        return this.loginPwd;
     }
-
+    
+    @JsonIgnore
     @Override
     public String getUsername() {
-        return "";
+        return this.loginAct;
     }
-
+    
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return this.accountNoExpired != null && this.accountNoExpired == 1;
     }
-
+    
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
-        return false;
-    }
 
+        return this.accountNoLocked != null && this.accountNoLocked == 1;
+    }
+    
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return this.credentialsNoExpired != null && this.credentialsNoExpired == 1;
     }
-
+    
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
-        return false;
+
+        return this.accountEnabled != null && this.accountEnabled == 1;
     }
 }

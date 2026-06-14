@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.222.128:3306/dlyk?useSSL=false&charset=utf8
+    url: jdbc:mysql://192.168.222.128:3306/dlyk?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8&serverTimezone=Asia/Tokyo
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
@@ -14,6 +14,9 @@ spring:
       host: 192.168.222.128
       password: 123456
       database: 0
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+9
 mybatis:
   mapper-locations: classpath:/mappers/*Mapper.xml
   configuration:

@@ -6,8 +6,8 @@ import lombok.Setter;
 
 @AllArgsConstructor
 public enum CodeEnum {
-    OK(200, "操作成功"),
-    FAIL(400, "操作失败!");
+    OK(200, "登录成功"),
+    FAIL(400, "登录失败!");
     @Getter
     @Setter
     Integer code;

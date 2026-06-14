@@ -1,8 +1,8 @@
 package com.lukai.config.filter;
 
-import com.lukai.domain.User;
 import com.lukai.domain.constants.Constants;
 import com.lukai.domain.result.R;
+import com.lukai.model.User;
 import com.lukai.utils.JSONUtils;
 import com.lukai.utils.JWTUtils;
 import com.lukai.utils.ResponseUtils;
@@ -22,6 +22,46 @@ import java.io.IOException;
 
 /**
  * 校验令牌的过滤器
+ * `JWTVerifyFilter` 的作用是：在每个非登录请求进入业务接口前，校验请求头里的 JWT，并把通过校验的用户信息放进 Spring Security 上下文。
+ *
+ * 具体流程在 [JWTVerifyFilter.java](D:/dev/projects/dlyk/dlyk-server/src/main/java/com/lukai/config/filter/JWTVerifyFilter.java:31)：
+ *
+ * 1. 跳过 `/api/login`
+ *    登录接口不需要提前带 token，所以直接放行。
+ *
+ * 2. 从请求头 `Authorization` 获取 token
+ *    如果没有 token，返回错误码 `10001`。
+ *
+ * 3. 校验 JWT 签名是否合法
+ *    调用 `JWTUtils.checkeJwt(token)`。如果 token 格式错误、签名不对等，理论上返回 `10002`。
+ *
+ * 4. 从 JWT 中解析用户信息
+ *    `JWTUtils.parseJwt(token)` 会取出 JWT 里的 `user` 字段，再转成 `User` 对象。
+ *
+ * 5. 和 Redis 中保存的 token 做比对
+ *    它用 `Constants.USER_TOKEN + user.getId()` 从 Redis 查 token：
+ *    - Redis 没有：说明 token 过期，返回 `10003`
+ *    - Redis 有但和请求头 token 不一致：说明账号可能被重新登录或强制下线，返回 `10004`
+ *
+ * 6. 构造认证对象并写入 Spring Security 上下文
+ *    这里的关键代码是：
+ *
+ * ```java
+ * UsernamePasswordAuthenticationToken authentication =
+ *     new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
+ *
+ * SecurityContextHolder.getContext().setAuthentication(authentication);
+ * ```
+ *
+ * 这样后续 Spring Security 就认为当前请求已经认证通过，可以访问 `authenticated()` 保护的接口。
+ *
+ * 它在 [SpringSecurityConfig.java](D:/dev/projects/dlyk/dlyk-server/src/main/java/com/lukai/config/SpringSecurityConfig.java:79) 被加入过滤器链：
+ *
+ * ```java
+ * .addFilterBefore(jwtVerifyFilter, LogoutFilter.class)
+ * ```
+ *
+ * 一句话总结：`JWTVerifyFilter` 是这个项目的“登录后请求鉴权过滤器”，负责校验 token、校验 Redis 登录状态，并把当前用户放到 Spring Security 里。
  */
 @Component
 public class JWTVerifyFilter extends OncePerRequestFilter {
